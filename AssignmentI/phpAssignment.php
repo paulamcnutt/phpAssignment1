@@ -6,20 +6,6 @@
         </head>
         <body>
                 <?
-					if (!isset($_POST['first_name'])){
-						$_POST['first_name']="";
-					}
-					if (!isset($_POST['last_name'])){
-						$_POST['last_name']="";
-					}
-					if (!isset($_POST['email'])){
-						$_POST['email']="";
-					}
-					if (!isset($_POST['op'])){
-						$_POST['op']="";
-					}
-
-					
 					$courses=array("Physical Education 10","Accounting 11","Biology 11","Robotics 11","Digital Arts 11","French 11","English 12","History 12","Law 12","Communications 12");
 					
 						$first_section ="<form method=\"POST\" action=\"informationAdded.php\" ENCTYPE=\"multipart/form-data\">
