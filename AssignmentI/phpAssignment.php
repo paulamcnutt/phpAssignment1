@@ -22,7 +22,7 @@
 					
 					$courses=array("Physical Education 10","Accounting 11","Biology 11","Robotics 11","Digital Arts 11","French 11","English 12","History 12","Law 12","Communications 12");
 					
-						$first_section ="<form method=\"POST\" action=\"$_SERVER[PHP_SELF]\">
+						$first_section ="<form method=\"POST\" action=\"informationAdded.php\" ENCTYPE=\"multipart/form-data\">
 								<span id=\"title\">
 									Student Course Tracker
 								</span>
@@ -75,44 +75,7 @@
 							</fieldset></div>	
 						<? echo $last_section ?>
 							
-					<?}else{
-														
-							$firstNameErr="";
-							$lastNameErr="";
-							$emailErr="";
-							if (!preg_match("/^[a-zA-Z'-]/",$_POST["first_name"])){
-									$firstNameErr = "Only letters and white space allowed in first name <br/>"; 
-									echo $firstNameErr;
-							}
-							if(!preg_match("/^[a-zA-Z'-]/",$_POST["last_name"])){
-									$lastNameErr = "Only letters and white space allowed in last name <br/>";
-									echo $lastNameErr;
-							}
-							if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-									$emailErr = "Invalid email format"; 
-									echo $emailErr;
-							} 
-							
-							if($firstNameErr=="" && $lastNameErr=="" && $emailErr==""){
-								if ($_FILES['uploadName'] != "") {
-									echo "point 2";
-									$ftp_server = "php.nscctruro.ca";
-									$ftp_username = "w0245232";
-									$ftp_password = "w0245232";
-									
-									$conn_id = ftp_connect($ftp_server) or die("could not connect to $ftp_server");
-									echo"point 3";
-									if(@ftp_login($conn_id, $ftp_username, $ftp_password)){
-									  ftp_put($conn_id, "../files/courses/".$_FILES['uploadName']['name'], $_FILES['uploadName']['tmp_name'],FTP_ASCII);
-									  ftp_close($conn_id);
-									}else {
-									  echo "No connection";
-									}
-								}  else {
-										die("No input file specified");
-								}
-							}
-						}
+					<?}
 							
 				?>
         </body>
