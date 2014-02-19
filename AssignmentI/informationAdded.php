@@ -37,8 +37,19 @@
 			$imageErr = "Incorrect upload format, make sure to submit an image. Course Information has not been submitted.";
 			echo $imageErr;
 		}
+		
+		$path= "../files/img/".$_FILES['uploadName']['name'] ;
 		//if there are no errors in any of the input then....
 		if($firstNameErr=="" && $lastNameErr=="" && $emailErr=="" && $imageErr=="" && $birthErr=="" ){
+					$ftp_server = "php.nscctruro.ca";
+					$ftp_username   = "w0245232";
+					$ftp_password   =  "w0245232";
+					
+				$conn_id = ftp_connect($ftp_server) or die("could not connect to $ftp_server");
+				//connected
+				if(@ftp_login($conn_id, $ftp_username, $ftp_password)){
+						//upload image
+						ftp_put($conn_id, "../files/img/".$_FILES['uploadName']['name'], $_FILES['uploadName']['tmp_name'],FTP_ASCII);
 							//confirmation details
 						echo "<html><head><title>Student Course Tracker</title>
 							<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\"></head><body>
@@ -61,7 +72,12 @@
 							<input type=\"hidden\" name=\"selectCourse2\" value='". $_POST['selectCourse2'] ."'>
 							<input type=\"hidden\" name=\"selectCourse3\" value='". $_POST['selectCourse3'] ."'>
 							<input type=\"hidden\" name=\"selectCourse4\" value='". $_POST['selectCourse4'] ."'>
-							<input type=\"hidden\" name=\"uploadName\" value='". $_FILES['uploadName']['name'] ."'>
+							<input type=\"hidden\" name=\"uploadName\" value='". $path ."'>			
 								<p><input type=\"submit\" name=\"submit\" class=\"buttons\" value=\"Confirm\"></p></body></html>";		
-		}
+				}else {
+					  //echo error message for no connection
+					  echo "Could not connect as $ftp_username\n";
+					  
+					  }
+				}
 ?>
